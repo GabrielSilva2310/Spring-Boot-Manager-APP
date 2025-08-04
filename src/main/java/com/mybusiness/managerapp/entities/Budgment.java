@@ -1,0 +1,121 @@
+package com.mybusiness.managerapp.entities;
+
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.Objects;
+
+import com.mybusiness.managerapp.enums.BudgetStatus;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_budgment" )
+public class Budgment {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	private String description;
+	private BigDecimal totalAmount;
+	private BudgetStatus status;
+	private Instant createdAt;
+	
+	private User user;
+	
+	private Client client;
+
+	public Budgment() {
+	}
+
+	public Budgment(Long id, String description, BigDecimal totalAmount, BudgetStatus status, Instant createdAt,
+			User user, Client client) {
+		this.id = id;
+		this.description = description;
+		this.totalAmount = totalAmount;
+		this.status = status;
+		this.createdAt = createdAt;
+		this.user = user;
+		this.client = client;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public BudgetStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(BudgetStatus status) {
+		this.status = status;
+	}
+
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Instant createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Budgment other = (Budgment) obj;
+		return Objects.equals(id, other.id);
+	}
+	
+	
+	
+	
+	
+	
+
+}
