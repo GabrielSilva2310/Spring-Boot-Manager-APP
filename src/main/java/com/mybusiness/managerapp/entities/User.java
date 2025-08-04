@@ -1,12 +1,14 @@
 package com.mybusiness.managerapp.entities;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,6 +24,21 @@ public class User {
 	private String password;
 	private String businessName;
 	private Instant createdAt;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Client> clients;
+
+	@OneToMany(mappedBy = "user")
+	private List<Appointment> appointments;
+
+	@OneToMany(mappedBy = "user")
+	private List<Budget> budgets;
+
+	@OneToMany(mappedBy = "user")
+	private List<Contract> contracts;
+
+	@OneToMany(mappedBy = "user")
+	private List<Transaction> transactions;
 	
 	public User() {
 	}

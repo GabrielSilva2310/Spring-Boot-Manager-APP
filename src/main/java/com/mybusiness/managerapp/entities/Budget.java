@@ -10,11 +10,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_budgment" )
-public class Budgment {
+public class Budget {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,14 +27,16 @@ public class Budgment {
 	private BudgetStatus status;
 	private Instant createdAt;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
 	private User user;
 	
 	private Client client;
 
-	public Budgment() {
+	public Budget() {
 	}
 
-	public Budgment(Long id, String description, BigDecimal totalAmount, BudgetStatus status, Instant createdAt,
+	public Budget(Long id, String description, BigDecimal totalAmount, BudgetStatus status, Instant createdAt,
 			User user, Client client) {
 		this.id = id;
 		this.description = description;
@@ -108,7 +112,7 @@ public class Budgment {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Budgment other = (Budgment) obj;
+		Budget other = (Budget) obj;
 		return Objects.equals(id, other.id);
 	}
 	
