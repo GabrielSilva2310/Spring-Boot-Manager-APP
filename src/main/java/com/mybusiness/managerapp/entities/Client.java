@@ -1,6 +1,7 @@
 package com.mybusiness.managerapp.entities;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +28,18 @@ public class Client {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+	@OneToMany(mappedBy = "client")
+	private List<Appointment> appointments;
+
+	@OneToMany(mappedBy = "client")
+	private List<Budget> budgets;
+
+	@OneToMany(mappedBy = "client")
+	private List<Contract> contracts;
+
+	@OneToMany(mappedBy = "client")
+	private List<Transaction> transactions;
 
 
 	public Client() {

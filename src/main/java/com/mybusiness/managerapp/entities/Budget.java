@@ -15,7 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_budgment" )
+@Table(name = "tb_budget" )
 public class Budget {
 	
 	@Id
@@ -31,6 +31,8 @@ public class Budget {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name = "client_id")
 	private Client client;
 
 	public Budget() {

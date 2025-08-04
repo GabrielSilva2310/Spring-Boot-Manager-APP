@@ -28,6 +28,8 @@ public class Contract {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name = "client_id")
 	private Client client;
 
 	public String getTitle() {

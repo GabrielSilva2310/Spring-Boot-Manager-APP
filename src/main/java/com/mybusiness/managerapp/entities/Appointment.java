@@ -30,7 +30,8 @@ public class Appointment {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	
+	@ManyToOne
+	@JoinColumn(name = "client_id")
 	private Client client;
 
 
