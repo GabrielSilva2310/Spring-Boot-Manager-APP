@@ -1,10 +1,12 @@
 package com.mybusiness.managerapp.entities;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.mybusiness.managerapp.enums.AppointmentStatus;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +25,8 @@ public class Appointment {
 	
 	private String title;
 	private String description;
+	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private LocalDateTime dateTime;
 	private AppointmentStatus status; 
 	
@@ -71,12 +75,12 @@ public class Appointment {
 	}
 
 
-	public LocalDateTime getDateTime() {
+	public LocalDateTime  getDateTime() {
 		return dateTime;
 	}
 
 
-	public void setDateTime(LocalDateTime dateTime) {
+	public void setDateTime(LocalDateTime  dateTime) {
 		this.dateTime = dateTime;
 	}
 
