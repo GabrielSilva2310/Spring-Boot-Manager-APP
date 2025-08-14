@@ -2,6 +2,7 @@ package com.mybusiness.managerapp.entities;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.mybusiness.managerapp.enums.BudgetStatus;
@@ -25,7 +26,7 @@ public class Budget {
 	private String description;
 	private BigDecimal totalAmount;
 	private BudgetStatus status;
-	private Instant createdAt;
+	private LocalDateTime createdAt;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -38,7 +39,7 @@ public class Budget {
 	public Budget() {
 	}
 
-	public Budget(Long id, String description, BigDecimal totalAmount, BudgetStatus status, Instant createdAt,
+	public Budget(Long id, String description, BigDecimal totalAmount, BudgetStatus status, LocalDateTime createdAt,
 			User user, Client client) {
 		this.id = id;
 		this.description = description;
@@ -73,11 +74,11 @@ public class Budget {
 		this.status = status;
 	}
 
-	public Instant getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Instant createdAt) {
+	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 
