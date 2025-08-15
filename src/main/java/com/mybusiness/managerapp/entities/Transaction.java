@@ -2,6 +2,7 @@ package com.mybusiness.managerapp.entities;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.mybusiness.managerapp.enums.TransactionType;
@@ -25,9 +26,9 @@ public class Transaction {
 	private BigDecimal amount;
 	private TransactionType type;
 	private String description;
-	private Instant dueDate;
+	private LocalDateTime dueDate;
 	private Boolean paid;
-	private Instant createdAt;
+	private LocalDateTime createdAt;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -40,8 +41,8 @@ public class Transaction {
 	public Transaction() {
 	}
 
-	public Transaction(Long id, BigDecimal amount, TransactionType type, String description, Instant dueDate,
-			Boolean paid, Instant createdAt, User user, Client client) {
+	public Transaction(Long id, BigDecimal amount, TransactionType type, String description, LocalDateTime dueDate,
+			Boolean paid, LocalDateTime createdAt, User user, Client client) {
 		this.id = id;
 		this.amount = amount;
 		this.type = type;
@@ -77,11 +78,11 @@ public class Transaction {
 		this.description = description;
 	}
 
-	public Instant getDueDate() {
+	public LocalDateTime getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(Instant dueDate) {
+	public void setDueDate(LocalDateTime dueDate) {
 		this.dueDate = dueDate;
 	}
 
@@ -93,11 +94,11 @@ public class Transaction {
 		this.paid = paid;
 	}
 
-	public Instant getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Instant createdAt) {
+	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 
