@@ -21,6 +21,8 @@ import com.mybusiness.managerapp.dto.ClientInsertDTO;
 import com.mybusiness.managerapp.dto.ClientUpdateDTO;
 import com.mybusiness.managerapp.services.ClientService;
 
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping(value = "/clients")
@@ -42,7 +44,7 @@ public class ClientController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ClientDTO> insert(@RequestBody ClientInsertDTO dto) {
+	public ResponseEntity<ClientDTO> insert(@RequestBody @Valid ClientInsertDTO dto) {
 		ClientDTO newDto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDto.getId()).toUri();
@@ -50,7 +52,7 @@ public class ClientController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientUpdateDTO dto) {
+	public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody @Valid ClientUpdateDTO dto) {
 		ClientDTO newDto = service.update(id, dto);
 		return ResponseEntity.ok().body(newDto);
 	}

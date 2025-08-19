@@ -49,7 +49,11 @@ public class ClientService {
 	@Transactional
 	public ClientDTO insert(ClientInsertDTO dto) {
 		Client entity = new Client();
-		copyDtoToEntity(dto, entity);
+		entity.setName(dto.getName());
+		entity.setEmail(dto.getEmail());
+		entity.setPhone(dto.getPhone());
+		entity.setUser(userRepository.findById(dto.getUserId())
+				.orElseThrow(() -> new ResourceNotFoundException("User Id not found " + dto.getUserId())));
 		entity.setCreatedAt(Instant.now());
 		entity = repository.save(entity);
 		return new ClientDTO(entity);
@@ -85,15 +89,5 @@ public class ClientService {
 		}
 	
 	}
-	
-	private void copyDtoToEntity(ClientDTO dto, Client entity) {
-
-		entity.setName(dto.getName());
-		entity.setEmail(dto.getEmail());
-		entity.setPhone(dto.getPhone());
-		entity.setUser(userRepository.getReferenceById(dto.getUser().getId()));
-		
-	}
-	
 	
 }

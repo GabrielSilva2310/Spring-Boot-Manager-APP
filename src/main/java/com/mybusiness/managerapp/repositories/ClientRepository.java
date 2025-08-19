@@ -8,5 +8,11 @@ import com.mybusiness.managerapp.entities.Client;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
+	
+	Client findByEmail(String email);
+	
+	Client findByPhone(String phone);
+	
+	
 
 }

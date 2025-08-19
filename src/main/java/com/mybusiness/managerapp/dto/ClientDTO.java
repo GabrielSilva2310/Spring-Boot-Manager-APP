@@ -4,6 +4,11 @@ import java.time.Instant;
 
 import com.mybusiness.managerapp.entities.Client;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 
 public class ClientDTO {
 	
@@ -11,6 +16,7 @@ public class ClientDTO {
 	 private String name;
 	 private String email;
 	 private String phone;
+	 
 	 private UserDTO user;
 	
 	 public ClientDTO() {
