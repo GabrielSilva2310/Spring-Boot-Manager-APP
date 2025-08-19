@@ -22,6 +22,8 @@ import com.mybusiness.managerapp.dto.ContractInsertDTO;
 import com.mybusiness.managerapp.dto.ContractUpdateDTO;
 import com.mybusiness.managerapp.services.ContractService;
 
+import jakarta.validation.Valid;
+
 
 
 @RestController
@@ -44,7 +46,7 @@ public class ContractController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ContractDTO> insert(@RequestBody ContractInsertDTO dto) {
+	public ResponseEntity<ContractDTO> insert(@RequestBody @Valid ContractInsertDTO dto) {
 		ContractDTO newDto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDto.getId()).toUri();
@@ -52,7 +54,7 @@ public class ContractController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ContractDTO> update(@PathVariable Long id, @RequestBody ContractUpdateDTO dto) {
+	public ResponseEntity<ContractDTO> update(@PathVariable Long id, @RequestBody @Valid ContractUpdateDTO dto) {
 		ContractDTO newDto = service.update(id, dto);
 		return ResponseEntity.ok().body(newDto);
 	}

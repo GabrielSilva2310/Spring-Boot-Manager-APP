@@ -65,8 +65,10 @@ public class ContractService {
 		entity.setFileUrl(dto.getFileUrl());
 		entity.setSigned(dto.getSigned());
 		entity.setCreatedAt(LocalDateTime.now());
-		entity.setClient(clientRepository.getReferenceById(dto.getClientId()));
-		entity.setUser(userRepository.getReferenceById(dto.getUserId()));
+		entity.setClient(clientRepository.findById(dto.getClientId())
+				.orElseThrow(() -> new ResourceNotFoundException("Client Id not found " + dto.getClientId())));
+		entity.setUser(userRepository.findById(dto.getUserId())
+				.orElseThrow(() -> new ResourceNotFoundException("User Id not found " + dto.getUserId())));
 		entity = repository.save(entity);
 		return new ContractDTO(entity);
 

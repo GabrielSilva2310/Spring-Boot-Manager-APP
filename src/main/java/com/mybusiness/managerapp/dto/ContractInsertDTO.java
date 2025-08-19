@@ -3,14 +3,28 @@ package com.mybusiness.managerapp.dto;
 import java.time.Instant;
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public class ContractInsertDTO {
 	
 	private Long id;
+	
+	@NotBlank(message = "Title is required!")
+	@Size(min = 3, max = 70, message = "Title must be between 3 and 70 characters long")
 	private String title;
+	
+	@NotBlank(message = "FileUrl is required!")
 	private String fileUrl; 
+	
 	private Boolean signed;
 	private LocalDateTime createdAt;
+	
+	@NotNull(message = "UserId is required!")
 	private Long userId;
+	
+	@NotNull(message = "ClientId is required!")
 	private Long clientId;
 	
 	public ContractInsertDTO() {
