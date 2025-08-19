@@ -11,14 +11,14 @@ public class ContractDTO {
 	private String title;
 	private String fileUrl; 
 	private Boolean signed;
-	private LocalDateTime createdAt;
+	private Instant createdAt;
 	private UserDTO user;
 	private ClientMinDTO client;
 	
 	public ContractDTO() {
 	}
 
-	public ContractDTO(Long id, String title, String fileUrl, Boolean signed, LocalDateTime createdAt, UserDTO user,
+	public ContractDTO(Long id, String title, String fileUrl, Boolean signed, Instant createdAt, UserDTO user,
 			ClientMinDTO client) {
 		this.id = id;
 		this.title = title;
@@ -55,7 +55,7 @@ public class ContractDTO {
 		return signed;
 	}
 
-	public LocalDateTime getCreatedAt() {
+	public Instant getCreatedAt() {
 		return createdAt;
 	}
 

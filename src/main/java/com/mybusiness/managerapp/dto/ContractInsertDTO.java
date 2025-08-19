@@ -19,7 +19,7 @@ public class ContractInsertDTO {
 	private String fileUrl; 
 	
 	private Boolean signed;
-	private LocalDateTime createdAt;
+	private Instant createdAt;
 	
 	@NotNull(message = "UserId is required!")
 	private Long userId;
@@ -30,7 +30,7 @@ public class ContractInsertDTO {
 	public ContractInsertDTO() {
 	}
 
-	public ContractInsertDTO(Long id, String title, String fileUrl, Boolean signed, LocalDateTime createdAt, Long userId,
+	public ContractInsertDTO(Long id, String title, String fileUrl, Boolean signed, Instant createdAt, Long userId,
 			Long clientId) {
 		this.id = id;
 		this.title = title;
@@ -57,7 +57,7 @@ public class ContractInsertDTO {
 		return signed;
 	}
 
-	public LocalDateTime getCreatedAt() {
+	public Instant getCreatedAt() {
 		return createdAt;
 	}
 

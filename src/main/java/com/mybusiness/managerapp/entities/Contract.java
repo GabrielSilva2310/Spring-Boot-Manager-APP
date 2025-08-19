@@ -1,7 +1,6 @@
 package com.mybusiness.managerapp.entities;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -23,7 +22,7 @@ public class Contract {
 	private String title;
 	private String fileUrl; 
 	private Boolean signed;
-	private LocalDateTime createdAt;
+	private Instant createdAt;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -57,11 +56,11 @@ public class Contract {
 		this.signed = signed;
 	}
 
-	public LocalDateTime getCreatedAt() {
+	public Instant getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
+	public void setCreatedAt(Instant createdAt) {
 		this.createdAt = createdAt;
 	}
 
