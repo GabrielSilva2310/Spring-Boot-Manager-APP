@@ -25,6 +25,8 @@ import com.mybusiness.managerapp.dto.ClientUpdateDTO;
 import com.mybusiness.managerapp.services.AppointmentService;
 import com.mybusiness.managerapp.services.ClientService;
 
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping(value = "/appointments")
@@ -46,7 +48,7 @@ public class AppointmentController {
 	}
 
 	@PostMapping
-	public ResponseEntity<AppointmentDTO> insert(@RequestBody AppointmentInsertDTO dto) {
+	public ResponseEntity<AppointmentDTO> insert(@RequestBody @Valid AppointmentInsertDTO dto) {
 		AppointmentDTO newDto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDto.getId()).toUri();
@@ -54,7 +56,7 @@ public class AppointmentController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<AppointmentDTO> update(@PathVariable Long id, @RequestBody AppointmentUpdateDTO dto) {
+	public ResponseEntity<AppointmentDTO> update(@PathVariable Long id, @RequestBody @Valid AppointmentUpdateDTO dto) {
 		AppointmentDTO newDto = service.update(id, dto);
 		return ResponseEntity.ok().body(newDto);
 	}

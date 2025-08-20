@@ -1,7 +1,6 @@
 package com.mybusiness.managerapp.entities;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.mybusiness.managerapp.enums.AppointmentStatus;
@@ -27,7 +26,7 @@ public class Appointment {
 	private String description;
 	
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private LocalDateTime dateTime;
+	private Instant dateTime;
 	private AppointmentStatus status; 
 	
 	@ManyToOne
@@ -43,7 +42,7 @@ public class Appointment {
 	}
 
 
-	public Appointment(Long id, String title, String description, LocalDateTime dateTime, AppointmentStatus status,
+	public Appointment(Long id, String title, String description, Instant dateTime, AppointmentStatus status,
 			User user, Client client) {
 		this.id = id;
 		this.title = title;
@@ -75,12 +74,12 @@ public class Appointment {
 	}
 
 
-	public LocalDateTime  getDateTime() {
+	public Instant  getDateTime() {
 		return dateTime;
 	}
 
 
-	public void setDateTime(LocalDateTime  dateTime) {
+	public void setDateTime(Instant  dateTime) {
 		this.dateTime = dateTime;
 	}
 
