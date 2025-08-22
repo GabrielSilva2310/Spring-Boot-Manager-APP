@@ -7,20 +7,26 @@ import java.time.LocalDateTime;
 import com.mybusiness.managerapp.entities.Budget;
 import com.mybusiness.managerapp.enums.BudgetStatus;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 public class BudgetDTO {
 
 	private Long id;
 	private String description;
 	private BigDecimal totalAmount;
 	private BudgetStatus status;
-	private LocalDateTime createdAt;
+	private Instant createdAt;
 	private UserDTO user;
 	private ClientMinDTO client;
 
 	public BudgetDTO() {
 	}
 
-	public BudgetDTO(Long id, String description, BigDecimal totalAmount, BudgetStatus status, LocalDateTime createdAt,
+	public BudgetDTO(Long id, String description, BigDecimal totalAmount, BudgetStatus status, Instant createdAt,
 			UserDTO user, ClientMinDTO client) {
 		this.id = id;
 		this.description = description;
@@ -57,7 +63,7 @@ public class BudgetDTO {
 		return status;
 	}
 
-	public LocalDateTime getCreatedAt() {
+	public Instant getCreatedAt() {
 		return createdAt;
 	}
 

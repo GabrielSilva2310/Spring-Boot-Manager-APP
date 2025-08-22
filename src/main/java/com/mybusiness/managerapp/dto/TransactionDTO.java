@@ -13,17 +13,17 @@ public class TransactionDTO {
 	private BigDecimal amount;
 	private TransactionType type;
 	private String description;
-	private LocalDateTime dueDate;
+	private Instant dueDate;
 	private Boolean paid;
-	private LocalDateTime createdAt;
+	private Instant createdAt;
 	private UserDTO user;
 	private ClientMinDTO client;
 	
 	public TransactionDTO() {
 	}
 
-	public TransactionDTO(Long id, BigDecimal amount, TransactionType type, String description, LocalDateTime dueDate,
-			Boolean paid, LocalDateTime createdAt, UserDTO user, ClientMinDTO client) {
+	public TransactionDTO(Long id, BigDecimal amount, TransactionType type, String description, Instant dueDate,
+			Boolean paid, Instant createdAt, UserDTO user, ClientMinDTO client) {
 		this.id = id;
 		this.amount = amount;
 		this.type = type;
@@ -63,7 +63,7 @@ public class TransactionDTO {
 		return description;
 	}
 
-	public LocalDateTime getDueDate() {
+	public Instant getDueDate() {
 		return dueDate;
 	}
 
@@ -71,7 +71,7 @@ public class TransactionDTO {
 		return paid;
 	}
 
-	public LocalDateTime getCreatedAt() {
+	public Instant getCreatedAt() {
 		return createdAt;
 	}
 

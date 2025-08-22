@@ -26,7 +26,7 @@ public class Budget {
 	private String description;
 	private BigDecimal totalAmount;
 	private BudgetStatus status;
-	private LocalDateTime createdAt;
+	private Instant createdAt;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -39,7 +39,7 @@ public class Budget {
 	public Budget() {
 	}
 
-	public Budget(Long id, String description, BigDecimal totalAmount, BudgetStatus status, LocalDateTime createdAt,
+	public Budget(Long id, String description, BigDecimal totalAmount, BudgetStatus status, Instant createdAt,
 			User user, Client client) {
 		this.id = id;
 		this.description = description;
@@ -74,11 +74,11 @@ public class Budget {
 		this.status = status;
 	}
 
-	public LocalDateTime getCreatedAt() {
+	public Instant getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
+	public void setCreatedAt(Instant createdAt) {
 		this.createdAt = createdAt;
 	}
 

@@ -26,6 +26,8 @@ import com.mybusiness.managerapp.dto.TransactionUpdateDTO;
 import com.mybusiness.managerapp.services.ContractService;
 import com.mybusiness.managerapp.services.TransactionService;
 
+import jakarta.validation.Valid;
+
 
 
 @RestController
@@ -48,7 +50,7 @@ public class TransactionController {
 	}
 
 	@PostMapping
-	public ResponseEntity<TransactionDTO> insert(@RequestBody TransactionInsertDTO dto) {
+	public ResponseEntity<TransactionDTO> insert(@RequestBody @Valid TransactionInsertDTO dto) {
 		TransactionDTO newDto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDto.getId()).toUri();
@@ -56,7 +58,7 @@ public class TransactionController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<TransactionDTO> update(@PathVariable Long id, @RequestBody TransactionUpdateDTO dto) {
+	public ResponseEntity<TransactionDTO> update(@PathVariable Long id, @RequestBody @Valid TransactionUpdateDTO dto) {
 		TransactionDTO newDto = service.update(id, dto);
 		return ResponseEntity.ok().body(newDto);
 	}

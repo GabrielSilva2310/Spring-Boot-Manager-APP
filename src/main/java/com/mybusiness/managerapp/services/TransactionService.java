@@ -1,5 +1,6 @@
 package com.mybusiness.managerapp.services;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,9 +56,11 @@ public class TransactionService {
 		entity.setDescription(dto.getDescription());
 		entity.setDueDate(dto.getDueDate());
 		entity.setPaid(false);
-		entity.setCreatedAt(LocalDateTime.now());
-		entity.setClient(clientRepository.getReferenceById(dto.getClientId()));
-		entity.setUser(userRepository.getReferenceById(dto.getUserId()));
+		entity.setCreatedAt(Instant.now());
+		entity.setClient(clientRepository.findById(dto.getClientId())
+				.orElseThrow(() -> new ResourceNotFoundException("Client Id not found " + dto.getClientId())));
+		entity.setUser(userRepository.findById(dto.getUserId())
+				.orElseThrow(() -> new ResourceNotFoundException("User Id not found " + dto.getUserId())));
 		entity = repository.save(entity);
 		return new TransactionDTO(entity);
 

@@ -26,9 +26,9 @@ public class Transaction {
 	private BigDecimal amount;
 	private TransactionType type;
 	private String description;
-	private LocalDateTime dueDate;
+	private Instant dueDate;
 	private Boolean paid;
-	private LocalDateTime createdAt;
+	private Instant createdAt;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -41,8 +41,8 @@ public class Transaction {
 	public Transaction() {
 	}
 
-	public Transaction(Long id, BigDecimal amount, TransactionType type, String description, LocalDateTime dueDate,
-			Boolean paid, LocalDateTime createdAt, User user, Client client) {
+	public Transaction(Long id, BigDecimal amount, TransactionType type, String description, Instant dueDate,
+			Boolean paid, Instant createdAt, User user, Client client) {
 		this.id = id;
 		this.amount = amount;
 		this.type = type;
@@ -78,11 +78,11 @@ public class Transaction {
 		this.description = description;
 	}
 
-	public LocalDateTime getDueDate() {
+	public Instant getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(LocalDateTime dueDate) {
+	public void setDueDate(Instant dueDate) {
 		this.dueDate = dueDate;
 	}
 
@@ -94,11 +94,11 @@ public class Transaction {
 		this.paid = paid;
 	}
 
-	public LocalDateTime getCreatedAt() {
+	public Instant getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
+	public void setCreatedAt(Instant createdAt) {
 		this.createdAt = createdAt;
 	}
 

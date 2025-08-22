@@ -22,6 +22,8 @@ import com.mybusiness.managerapp.dto.BudgetInsertDTO;
 import com.mybusiness.managerapp.dto.BudgetUpdateDTO;
 import com.mybusiness.managerapp.services.BudgetService;
 
+import jakarta.validation.Valid;
+
 
 
 @RestController
@@ -44,7 +46,7 @@ public class BudgetController {
 	}
 
 	@PostMapping
-	public ResponseEntity<BudgetDTO> insert(@RequestBody BudgetInsertDTO dto) {
+	public ResponseEntity<BudgetDTO> insert(@RequestBody @Valid BudgetInsertDTO dto) {
 		BudgetDTO newDto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDto.getId()).toUri();
@@ -52,7 +54,7 @@ public class BudgetController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<BudgetDTO> update(@PathVariable Long id, @RequestBody BudgetUpdateDTO dto) {
+	public ResponseEntity<BudgetDTO> update(@PathVariable Long id, @RequestBody @Valid BudgetUpdateDTO dto) {
 		BudgetDTO newDto = service.update(id, dto);
 		return ResponseEntity.ok().body(newDto);
 	}

@@ -59,9 +59,11 @@ public class BudgetService {
 		entity.setDescription(dto.getDescription());
 		entity.setTotalAmount(dto.getTotalAmount());
 		entity.setStatus(BudgetStatus.PENDING);
-		entity.setCreatedAt(LocalDateTime.now());
-		entity.setClient(clientRepository.getReferenceById(dto.getClientId()));
-		entity.setUser(userRepository.getReferenceById(dto.getUserId()));
+		entity.setCreatedAt(Instant.now());
+		entity.setClient(clientRepository.findById(dto.getClientId())
+				.orElseThrow(() -> new ResourceNotFoundException("Client Id not found " + dto.getClientId())));
+		entity.setUser(userRepository.findById(dto.getUserId())
+				.orElseThrow(() -> new ResourceNotFoundException("User Id not found " + dto.getUserId())));
 		entity = repository.save(entity);
 		return new BudgetDTO(entity);
 
