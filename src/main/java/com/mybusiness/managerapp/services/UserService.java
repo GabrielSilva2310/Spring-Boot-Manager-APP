@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,7 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mybusiness.managerapp.dto.UserDTO;
 import com.mybusiness.managerapp.dto.UserInsertDTO;
+import com.mybusiness.managerapp.entities.Role;
 import com.mybusiness.managerapp.entities.User;
+import com.mybusiness.managerapp.projections.UserDetailsProjection;
 import com.mybusiness.managerapp.repositories.UserRepository;
 import com.mybusiness.managerapp.services.exceptions.DataBaseException;
 import com.mybusiness.managerapp.services.exceptions.ResourceNotFoundException;
@@ -24,7 +29,7 @@ import com.mybusiness.managerapp.dto.UserUpdateDTO;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 	
 	@Autowired
 	private UserRepository repository;
@@ -90,6 +95,24 @@ public class UserService {
 		entity.setEmail(dto.getEmail());
 		entity.setBusinessName(dto.getBusinessName());
 	
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		
+		List<UserDetailsProjection> result = repository.searchUserAndRolesByEmail(username);
+		if (result.size() == 0) {
+			throw new UsernameNotFoundException("Email not found");
+		}
+		
+		User user = new User();
+		user.setEmail(result.get(0).getUsername());
+		user.setPassword(result.get(0).getPassword());
+		for (UserDetailsProjection projection : result) {
+			user.addRole(new Role(projection.getRoleId(), projection.getAuthority()));
+		}
+		
+		return user;
 	}
 	
 	
