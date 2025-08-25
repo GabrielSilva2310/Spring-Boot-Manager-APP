@@ -10,6 +10,8 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.mybusiness.managerapp.projections.UserDetailsProjection;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,21 +25,21 @@ import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "tb_user" )
+@Table(name = "tb_user")
 public class User implements UserDetails {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String name;
 	private String email;
 	private String password;
 	private String businessName;
-	
+
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant createdAt;
-	
+
 	@OneToMany(mappedBy = "user")
 	private List<Client> clients;
 
@@ -52,13 +54,11 @@ public class User implements UserDetails {
 
 	@OneToMany(mappedBy = "user")
 	private List<Transaction> transactions;
-	
+
 	@ManyToMany
-	@JoinTable(name = "tb_user_role",
-		joinColumns = @JoinColumn(name = "user_id"),
-		inverseJoinColumns = @JoinColumn(name = "role_id"))	
+	@JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
-	
+
 	public User() {
 	}
 
@@ -69,6 +69,15 @@ public class User implements UserDetails {
 		this.password = password;
 		this.businessName = businessName;
 		this.createdAt = createdAt;
+	}
+
+	public User(List<UserDetailsProjection> projections) {
+		this.email = projections.get(0).getUsername();
+		this.password = projections.get(0).getPassword();
+		for (UserDetailsProjection projection : projections) {
+			addRole(new Role(projection.getRoleId(), projection.getAuthority()));
+		}
+
 	}
 
 	public Long getId() {
@@ -114,15 +123,15 @@ public class User implements UserDetails {
 	public void setCreatedAt(Instant createdAt) {
 		this.createdAt = createdAt;
 	}
-	
+
 	public Set<Role> getRoles() {
 		return roles;
 	}
 
-    public void addRole(Role role) {
-    	roles.add(role);
-    }
-    
+	public void addRole(Role role) {
+		roles.add(role);
+	}
+
 	public boolean hasRole(String roleName) {
 		for (Role role : roles) {
 			if (role.getAuthority().equals(roleName)) {
@@ -148,7 +157,6 @@ public class User implements UserDetails {
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -179,12 +187,5 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }

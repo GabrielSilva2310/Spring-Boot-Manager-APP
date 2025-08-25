@@ -30,17 +30,16 @@ import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UserService implements UserDetailsService {
-	
+
 	@Autowired
 	private UserRepository repository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
-		User user = repository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado!"));
+		User user = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado!"));
 		return new UserDTO(user);
 	}
 
@@ -60,7 +59,7 @@ public class UserService implements UserDetailsService {
 		return new UserDTO(entity);
 
 	}
-	
+
 	@Transactional
 	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
@@ -68,52 +67,41 @@ public class UserService implements UserDetailsService {
 			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
 			return new UserDTO(entity);
-		}
-		catch (EntityNotFoundException e) {
+		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Id not found " + id);
-		}		
+		}
 	}
 
-	
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(Long id) {
-		if(!repository.existsById(id)) {
+		if (!repository.existsById(id)) {
 			throw new ResourceNotFoundException("Recurso não encontrado!");
 		}
 		try {
 			repository.deleteById(id);
-		}
-		catch(DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new DataBaseException("Falha de Integridade Referencial!");
 		}
-	
+
 	}
-	
+
 	private void copyDtoToEntity(UserDTO dto, User entity) {
-		
+
 		entity.setName(dto.getName());
 		entity.setEmail(dto.getEmail());
 		entity.setBusinessName(dto.getBusinessName());
-	
+
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
 		List<UserDetailsProjection> result = repository.searchUserAndRolesByEmail(username);
+
 		if (result.size() == 0) {
-			throw new UsernameNotFoundException("Email not found");
+			throw new UsernameNotFoundException("User Not Found!");
 		}
-		
-		User user = new User();
-		user.setEmail(result.get(0).getUsername());
-		user.setPassword(result.get(0).getPassword());
-		for (UserDetailsProjection projection : result) {
-			user.addRole(new Role(projection.getRoleId(), projection.getAuthority()));
-		}
-		
-		return user;
+
+		return new User(result);
 	}
-	
-	
+
 }
